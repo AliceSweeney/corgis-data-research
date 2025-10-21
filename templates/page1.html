@@ -8,9 +8,10 @@
 	<h1>Tate Gallery Statistics</h1>
 	<h2>Search the Art</h2>
 	<form action="/showArt">
-        <select name="artTitle">
+		<input class="form-control" list="artTitles" name="artTitle" id="artTitle">
+        <datalist id="artTitles">
 			{{ art_options }}
-        </select>
+        </datalist>
         <br><br>
         <input type="submit" value="Search for a piece in the collection">
     </form>
