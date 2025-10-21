@@ -7,4 +7,14 @@
 {% block content %}
 	<h1>Tate Gallery Statistics</h1>
 	<h2>Search the Art</h2>
+	<form action="/showArt">
+        <select name="artTitle">
+			{{ art_options }}
+        </select>
+        <br><br>
+        <input type="submit" value="Search for a piece in the collection">
+    </form>
+    <div id="art">
+        <p>{{ art }}</p>
+    </div>
 {% endblock %}
