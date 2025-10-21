@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-		<title>Tate Gallery Statistics</title>
-	</head>
-	<body>
-		<h1>Tate Gallery Statistics</h1>
-		<h2>Home: About the Data</h2>
-		<p>The data in this project is from the CORGIS Dataset Project and can be found <a href="https://corgis-edu.github.io/corgis/json/tate/">here</a>. The data contains information on the art pieces in the Tate collection. The collection is made up of British art from the 1500s to the present as well as international modern or contemporary art. The collection consists of all different mediums from painting to performance, and the dataset notes all of the mediums used in the piece.</p>
-		<p>The dataset attaches a person to each piece and has a key that explains what role that person played in the piece. Most of the time it is the artist but other times it says something like "attributed to". This categorization of the person means  that while people think that they are the artist of the piece, they don't know for certain. Other examples of this are "after", as in the piece is a copy of that artists art, "manner of", as in it is in the style of a certain artist, and "studio/workshop of", as in it was likely made in the artist's studio possibly with their guidance. For example, if a seller wanted to label a piece that they were pretty sure a certain artist made but they don't really know for certain, they might say it is attributed to that artist instead of it is from that artist. (<a href="https://www.alexcooper.com/blog/what-does-attributed-to-mean">Source</a>)</p>
-	</body>
-</html>
+{% extends "layout.html" %}
+
+{% set active_page = "home" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Tate Gallery Statistics</h1>
+	<h2>Home: About the Data</h2>
+	<p>The data in this project is from the CORGIS Dataset Project and can be found <a href="https://corgis-edu.github.io/corgis/json/tate/">here</a>. The data contains information on the art pieces in the Tate collection. The collection is made up of British art from the 1500s to the present as well as international modern or contemporary art. The collection consists of all different mediums from painting to performance, and the dataset notes all of the mediums used in the piece.</p>
+	<p>The dataset attaches a person to each piece and has a key that explains what role that person played in the piece. Most of the time it is the artist but other times it says something like "attributed to". This categorization of the person means  that while people think that they are the artist of the piece, they don't know for certain. Other examples of this are "after", as in the piece is a copy of that artists art, "manner of", as in it is in the style of a certain artist, and "studio/workshop of", as in it was likely made in the artist's studio possibly with their guidance. For example, if a seller wanted to label a piece that they were pretty sure a certain artist made but they don't really know for certain, they might say it is attributed to that artist instead of it is from that artist. (<a href="https://www.alexcooper.com/blog/what-does-attributed-to-mean">Source</a>)</p>
+{% endblock %}
