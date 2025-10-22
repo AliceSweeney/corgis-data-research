@@ -14,6 +14,12 @@ def render_main():
 def render_page1():
     artPieces = get_art_pieces()
     return render_template('page1.html', art_options=artPieces)
+@app.route("/showArt")
+def render_showArt():
+    artPieces = get_art_pieces()
+    art = request.args.get("artTitle")
+    artURL = get_art_url(art)
+    return render_template('page1.html', art_options=artPieces, art_url=artURL)
 
 @app.route("/p2")
 def render_page2():
@@ -34,6 +40,15 @@ def get_art_pieces():
     for x in art_options:
         options += Markup("<option value=\"" + x + "\">" + x + "</option>") #Use Markup so <, >, " are not escaped lt, gt, etc.
     return options
-   
+
+def get_art_url(art):
+    with open('tate.json') as tate_data:
+        collection = json.load(tate_data)
+    url = ""
+    for pieces in collection:
+        if pieces["data"]["title"] == art:
+            url = pieces["data"]["url"]
+    return url
+
 if __name__=="__main__":
     app.run(debug=False)
