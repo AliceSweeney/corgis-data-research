@@ -1,0 +1,41 @@
+[33mcommit 3f54bd693ccaa7ab1f8222aa3aa1f0fd847bf85e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: AliceSweeney <alice@sweeneyclan.org>
+Date:   Wed Oct 22 13:07:34 2025 -0700
+
+    Feat: finish first form to show url of a title
+
+[33mcommit f94836b930a6b40f5c0203988834f5cacba9c573[m
+Author: AliceSweeney <alice@sweeneyclan.org>
+Date:   Tue Oct 21 13:53:17 2025 -0700
+
+    Feat: make selecting art titles a datalist not select
+
+[33mcommit 9c76b95954e6d4b34ce580bad60345e6fd547de3[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: AliceSweeney <alice@sweeneyclan.org>
+Date:   Tue Oct 21 13:47:17 2025 -0700
+
+    Feat: make all art dropdown menu for page 1
+
+[33mcommit 55f0c308923e2aab29adcae4b9fdadc9defee8bd[m
+Author: AliceSweeney <alice@sweeneyclan.org>
+Date:   Tue Oct 21 13:18:25 2025 -0700
+
+    Feat: connect other pages to navbar
+
+[33mcommit 9b7778e8e7149901c25736179497eb4626ff3889[m
+Author: AliceSweeney <alice@sweeneyclan.org>
+Date:   Tue Oct 21 13:07:13 2025 -0700
+
+    Refactor: use a layout page to add a navbar
+
+[33mcommit 6456d471360c37ec1eb62b7e09bc5ccc24c72aa3[m
+Author: AliceSweeney <alice@sweeneyclan.org>
+Date:   Tue Oct 21 12:47:27 2025 -0700
+
+    Feat: add home page blurb
+
+[33mcommit 06caa3de93016c25c9e2989cfbb0f1c538062905[m
+Author: AliceSweeney <alice@sweeneyclan.org>
+Date:   Thu Oct 16 13:19:15 2025 -0700
+
+    Initial commit

@@ -2,7 +2,7 @@
 
 {% set active_page = "page1" %}
 
-{% block title %}page1{% endblock %}
+{% block title %}Search the Art{% endblock %}
 
 {% block content %}
 	<h1>Tate Gallery Statistics</h1>
@@ -12,10 +12,14 @@
         <datalist id="artTitles">
 			{{ art_options }}
         </datalist>
-        <br><br>
         <input type="submit" value="Search for a piece in the collection">
     </form>
+	<br></br>
     <div id="art">
         <p>{{ art_url }}</p>
+		<p>{{ art_artist }}</p>
+		<p>{{ art_medium }}</p>
+		<p>{{ art_date_made }}</p>
+		<p>{{ art_date_collected }}</p>
     </div>
 {% endblock %}

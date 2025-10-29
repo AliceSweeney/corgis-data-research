@@ -2,9 +2,32 @@
 
 {% set active_page = "page3" %}
 
-{% block title %}page3{% endblock %}
+{% block title %}Gender{% endblock %}
 
 {% block content %}
 	<h1>Tate Gallery Statistics</h1>
 	<h2>Gender</h2>
+	
+	<script>
+	window.onload = function() {
+
+	var chart = new CanvasJS.Chart("chartContainer", {
+		animationEnabled: true,
+		title: {
+			text: "Ratio of Male to Female Artists"
+		},
+		data: [{
+			type: "pie",
+			startAngle: 0,
+			yValueFormatString: "##0.00\"%\"",
+			indexLabel: "{label} {y}",
+			dataPoints: {{ data | safe }}
+		}]
+	});
+	chart.render();
+
+	}
+	</script>
+	<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+	<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 {% endblock %}
