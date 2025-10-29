@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% set active_page = "page4" %}
+
+{% block title %}Art Over Time{% endblock %}
+
+{% block content %}
+    <h1>Tate Gallery Statistics</h1>
+	<h2>Art Over Time</h2>
+	<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+	<script type="text/javascript">
+
+	window.onload = function () {
+		var chart = new CanvasJS.Chart("chart1Container", {
+			title:{
+				text: "Art Made Over Time"              
+			},
+			data: [              
+			{
+				type: "column",
+				dataPoints: {{ data1 | safe }}
+			}
+			]
+		});
+		chart.render();
+		var chart = new CanvasJS.Chart("chart2Container", {
+			title:{
+				text: "Art Collected Over Time"              
+			},
+			data: [              
+			{
+				type: "column",
+				dataPoints: {{ data2 | safe }}
+			}
+			]
+		});
+		chart.render();
+	}
+	</script>
+	<div id="chart1Container" style="height: 400px; width: 100%;"></div>
+	<br></br>
+	<div id="chart2Container" style="height: 400px; width: 100%;"></div>
+{% endblock %}

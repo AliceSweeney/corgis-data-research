@@ -47,6 +47,10 @@ def render_otherMedium():
 def render_page3():
     return render_template('page3.html', data=get_gender_data())
 
+@app.route("/p4")
+def render_page4():
+    return render_template('page4.html', data1=get_creation_decade_data(), data2=get_acquisition_date_data())
+
 def get_art_pieces():
     with open('tate.json') as tate_data:
         collection = json.load(tate_data)
@@ -146,6 +150,58 @@ def get_gender_data():
     male = male/total*100
     genData = [{"y": female, "label": "Female"}, {"y": male, "label": "Male"}]
     return genData
+
+def get_creation_decade_data(): # similar format to get_mediums_data
+    with open('tate.json') as tate_data:
+        collection = json.load(tate_data)
+    decades = []
+    for pieces in collection:
+        if pieces["metadata"]["creation decade"] not in decades:
+            decades.append(pieces["metadata"]["creation decade"])
+    sorted_decades = sorted(decades)
+    decadesAll=[]
+    for pieces in collection:
+        decadesAll.append(pieces["metadata"]["creation decade"])
+    counts={}
+    for dec in decadesAll:
+        if dec in counts:
+            counts[dec] = counts[dec] + 1
+        else:
+            counts[dec] = 1
+    num = []
+    for x in counts:
+        num.append(counts[x]) #Gets the number of times a medium shows up and puts in a list
+    decData = []
+    for dec, n, in zip(sorted_decades, num): #Should take a data point from each list and put them together in a new list of dictionaries for data points
+        decData.append({"label": dec, "y": n})
+        if dec == 0:
+            decData.remove({"label": dec, "y": n})
+    return decData
+
+def get_acquisition_date_data(): # similar format to get_mediums_data
+    with open('tate.json') as tate_data:
+        collection = json.load(tate_data)
+    years = []
+    for pieces in collection:
+        if pieces["metadata"]["acquisition date"] not in years:
+            years.append(pieces["metadata"]["acquisition date"])
+    sorted_years = sorted(years)
+    yearsAll=[]
+    for pieces in collection:
+        yearsAll.append(pieces["metadata"]["acquisition date"])
+    counts={}
+    for year in yearsAll:
+        if year in counts:
+            counts[year] = counts[year] + 1
+        else:
+            counts[year] = 1
+    num = []
+    for x in counts:
+        num.append(counts[x]) #Gets the number of times a medium shows up and puts in a list
+    yearData = []
+    for year, n, in zip(sorted_years, num): #Should take a data point from each list and put them together in a new list of dictionaries for data points
+        yearData.append({"label": year, "y": n})
+    return yearData
 
 if __name__=="__main__":
     app.run(debug=False)
