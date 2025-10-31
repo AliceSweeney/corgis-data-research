@@ -11,7 +11,7 @@
 	<script>
 	window.onload = function() {
 
-	var chart = new CanvasJS.Chart("chartContainer", {
+	var chart = new CanvasJS.Chart("chart1Container", {
 		animationEnabled: true,
 		title: {
 			text: "Ratio of Male to Female Artists"
@@ -25,9 +25,57 @@
 		}]
 	});
 	chart.render();
+	
+	var chart = new CanvasJS.Chart("chart2Container", {
+	animationEnabled: true,
+	title:{
+		text: "Pieces Made by Each Gender Per Decade"
+	},	
+	axisY: {
+		title: "Pieces Made",
+		titleFontColor: "#4F81BC",
+		lineColor: "#4F81BC",
+		labelFontColor: "#4F81BC",
+		tickColor: "#4F81BC"
+	},	
+	toolTip: {
+		shared: true
+	},
+	legend: {
+		cursor:"pointer",
+		itemclick: toggleDataSeries
+	},
+	data: [{
+		type: "column",
+		name: "Male",
+		legendText: "Male",
+		showInLegend: true, 
+		dataPoints:{{ maleData | safe }}
+	},
+	{
+		type: "column",	
+		name: "Female",
+		legendText: "Female",
+		showInLegend: true,
+		dataPoints:{{ femaleData | safe }}
+	}]
+});
+chart.render();
+
+function toggleDataSeries(e) {
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	}
+	else {
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+}
 
 	}
 	</script>
-	<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+	<div id="chart1Container" style="height: 500px; width: 100%;"></div>
+	<br></br>
+	<div id="chart2Container" style="height: 500px; width: 100%;"></div>
 	<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 {% endblock %}

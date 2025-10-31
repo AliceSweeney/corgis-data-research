@@ -19,7 +19,7 @@ def render_showArt():
     artPieces = get_art_pieces()
     art = request.args.get("artTitle")
     artData = get_art_data(art)
-    text1 = "The link can be found " + Markup("<a href=" + artData[0] + ">link</a>") + "."
+    text1 = "The link can be found " + Markup("<a href=" + artData[0] + ">here</a>") + "."
     text2 = "The artist is " + artData[1] + "."
     text3 = "It was made with " + artData[2] + "."
     if artData[3] == 0:
@@ -45,7 +45,7 @@ def render_otherMedium():
 
 @app.route("/p3")
 def render_page3():
-    return render_template('page3.html', data=get_gender_data())
+    return render_template('page3.html', data=get_gender_data(), maleData=get_male_data(), femaleData=get_female_data())
 
 @app.route("/p4")
 def render_page4():
@@ -148,8 +148,64 @@ def get_gender_data():
     total = female + male
     female = female/total*100
     male = male/total*100
-    genData = [{"y": female, "label": "Female"}, {"y": male, "label": "Male"}]
+    genData = [{"y": male, "label": "Male"}, {"y": female, "label": "Female"}]
     return genData
+
+def get_male_data(): #similar structure to get creation decade data
+    with open('tate.json') as tate_data:
+        collection = json.load(tate_data)
+    decades = []
+    for pieces in collection:
+        if pieces["metadata"]["creation decade"] not in decades:
+            decades.append(pieces["metadata"]["creation decade"])
+    sorted_decades = sorted(decades)
+    decadesAll=[]
+    for pieces in collection:
+        if pieces["artist"]["gender"] == "Male": #only counts how many times a male artist made a piece in a decade
+            decadesAll.append(pieces["metadata"]["creation decade"])
+    counts={}
+    for dec in decadesAll:
+        if dec in counts:
+            counts[dec] = counts[dec] + 1
+        else:
+            counts[dec] = 1
+    num = []
+    for x in counts:
+        num.append(counts[x]) #Gets the number of times a decade shows up and puts in a list
+    decData = []
+    for dec, n, in zip(sorted_decades, num): #Should take a data point from each list and put them together in a new list of dictionaries for data points
+        decData.append({"label": dec, "y": n})
+        if dec == 0:
+            decData.remove({"label": dec, "y": n})
+    return decData
+
+def get_female_data():
+    with open('tate.json') as tate_data:
+        collection = json.load(tate_data)
+    decades = []
+    for pieces in collection:
+        if pieces["metadata"]["creation decade"] not in decades:
+            decades.append(pieces["metadata"]["creation decade"])
+    sorted_decades = sorted(decades)
+    decadesAll=[]
+    for pieces in collection:
+        if pieces["artist"]["gender"] == "Female": #only counts how many times a female artist made a piece in a decade
+            decadesAll.append(pieces["metadata"]["creation decade"])
+    counts={}
+    for dec in decadesAll:
+        if dec in counts:
+            counts[dec] = counts[dec] + 1
+        else:
+            counts[dec] = 1
+    num = []
+    for x in counts:
+        num.append(counts[x]) #Gets the number of times a decade shows up and puts in a list
+    decData = []
+    for dec, n, in zip(sorted_decades, num): #Should take a data point from each list and put them together in a new list of dictionaries for data points
+        decData.append({"label": dec, "y": n})
+        if dec == 0:
+            decData.remove({"label": dec, "y": n})
+    return decData
 
 def get_creation_decade_data(): # similar format to get_mediums_data
     with open('tate.json') as tate_data:
