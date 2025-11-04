@@ -25,7 +25,7 @@
 		chart.render();
 	}
 	</script>
-	<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+	<div id="chartContainer" class="graph" style="height: 400px; width: 100%; border: 10px solid tan;"></div>
 	<br></br>
 	<form action="/otherMedium">
 		<input class="form-control" list="others" name="other" id="other">
@@ -37,5 +37,17 @@
 	<br></br>
     <div id="num">
         <p>{{ num_pieces }}</p>
+    </div>
+	<br></br>
+	<form action="/timeMedium">
+		<input class="form-control" list="decades" name="decade" id="decade">
+        <datalist id="decades">
+			{{ decades }}
+        </datalist>
+        <input type="submit" value="What was the most popular medium each decade?">
+    </form>
+	<br></br>
+    <div id="med">
+        <p>{{ medium }}</p>
     </div>
 {% endblock %}

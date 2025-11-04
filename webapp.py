@@ -35,13 +35,24 @@ def render_showArt():
 @app.route("/p2")
 def render_page2():
     otherMeds = get_other_meds()
-    return render_template('page2.html', data=get_mediums_data(), other_mediums = otherMeds)
+    allDecades = get_decades()
+    return render_template('page2.html', data=get_mediums_data(), other_mediums = otherMeds, decades = allDecades)
 @app.route("/otherMedium")
 def render_otherMedium():
     otherMeds = get_other_meds()
+    allDecades = get_decades()
     med = request.args.get("other")
     numText = "There are " + str(get_num_pieces(med)) + " pieces made with " + med + " in the collection."
-    return render_template('page2.html', data=get_mediums_data(), other_mediums = otherMeds, num_pieces=numText)
+    return render_template('page2.html', data=get_mediums_data(), other_mediums = otherMeds, decades = allDecades, num_pieces=numText)
+@app.route("/timeMedium")
+def render_timeMedium():
+    otherMeds = get_other_meds()
+    allDecades = get_decades()
+    dec = request.args.get("decade")
+    print(dec)
+    print(get_popular_medium(dec))
+    popMedium = "The most common medium in " + dec + " was " + str(get_popular_medium(dec)) + "."
+    return render_template('page2.html', data=get_mediums_data(), other_mediums = otherMeds, decades = allDecades, medium = popMedium)
 
 @app.route("/p3")
 def render_page3():
@@ -134,6 +145,38 @@ def get_num_pieces(med):
         if pieces["data"]["medium"] == med:
             num = num + 1
     return num
+
+def get_decades():
+    with open('tate.json') as tate_data:
+        collection = json.load(tate_data)
+    decade_options=[]
+    for pieces in collection:
+        if pieces["metadata"]["creation decade"] not in decade_options:
+            decade_options.append(pieces["metadata"]["creation decade"])
+    sortedDecades = sorted(decade_options)
+    options=""
+    for x in sortedDecades:
+        options += Markup("<option value=\"" + str(x) + "\">" + str(x) + "</option>") #Use Markup so <, >, " are not escaped lt, gt, etc.
+    return options
+
+def get_popular_medium(dec):
+    with open('tate.json') as tate_data:
+        collection = json.load(tate_data)
+    allMediums = []
+    for pieces in collection:
+        if pieces["metadata"]["creation decade"] == int(dec):
+            allMediums.append(pieces["data"]["medium"])
+    counts = {}
+    highest = 0
+    for med in allMediums:
+        if med in counts:
+            counts[med] = counts[med] + 1
+        else:
+            counts[med] = 1
+        if counts[med] > highest:
+            highest = counts[med]
+            mostPopular = med
+    return mostPopular #want to return a name of a medium
 
 def get_gender_data():
     with open('tate.json') as tate_data:
